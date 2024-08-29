@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 import torch
 import pandas as pd
@@ -6,10 +7,6 @@ import pandas as pd
 from model.narx import NarxModel
 from model.narxbuffer import NarxBuffer
 from model.variablenames import endog_variable_names, exog_variable_names, model_in_variable_order, model_out_variable_order
-
-# device = torch.device("cpu")
-
-
 
 # Setup the model
 model = NarxModel()
@@ -44,6 +41,24 @@ class PredictionRequest(BaseModel):
         ...,
         example=FUTURE
     )
+
+# The root endpoint used as a landing page
+@app.get("/", response_class=HTMLResponse)
+async def root():
+    return """
+    <html>
+        <head>
+            <title>ssmartCH4 Methane Prediction API</title>
+        </head>
+        <body>
+            <h1>smartCH4 Methane Prediction API (NARX model)</h1>
+            <p>Predict the methane production of a biogas plant using the smartCH4 prediction model</p>
+            <p>Go to <a href="docs">/docs</a> to see the API documentation.</p>
+            <p><a href="https://github.com/tbousiou/smartCH4-prediction-narx-api/">GitHub repository</a></p>
+        </body>
+    </html>
+    """
+
 
 # The predict endpoint
 @app.post("/predict")
