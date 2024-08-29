@@ -6,14 +6,18 @@ Clone the repo
 
 `git clone repo_url`
 
-Install a python virtual environment and required packages.
+Install and activate a python 3 virtual environment.
 
 `python3 -m venv venv`
 
 `source venv/bin/activate`
 
+Install required packages.
+
 `pip instal install torch --index-url https://download.pytorch.org/whl/cpu`
+
 `pip instal pandas`
+
 `pip install "fastapi[standard]"`
 
 or `pip install -r requirements.txt`
@@ -23,7 +27,7 @@ For development use `dev` command
 
 `fastapi dev api.py`
 
-For production use `run` command. You mighy need to specify a port number with `xxxx`
+For production use `run` command. You might need to specify a port number with `xxxx`
 
 `fastapi run api.py --port xxxx`
 
